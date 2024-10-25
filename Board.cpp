@@ -22,4 +22,13 @@ Board::Board(int size, int mines) {
         swap(mineLocations[i], mineLocations[j]);
     }
 
+    // Set the board's size before filling it with mines
+    board.resize(size, vector<cell>(size));
+
+    // Fill the board with mines
+    // NOTE: Logic may need to be modified to work with completed cell class
+    for (int i = 0; i < (size * size); i++) {
+        board[i / size][i % size] = mineLocations[i];
+    }
+
 }
