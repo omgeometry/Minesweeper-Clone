@@ -1,17 +1,26 @@
-// Cell object
-// Project Minesweeper Clone
-
+// Cell header/object
+// Carter Holtmann
 
 #pragma once
 
 class Cell {
 
 public:
-  // take in bool and depending on left or right click, do different things
-  Cell(bool k); // constructor, bool true = bomb/ false = not bomb
+  
+  Cell() {
+
+    mine = false; // if set true by board.cpp then the cell is a mine
+    flag = false; // if set true then cell is a flag
+
+  }; 
+
+  void isFlag(Cell); // to check flagged spaces
+  bool isMine(Cell); // check for bomb
+
 
 private:
 
-  bool isFlag(); // to check flagged spaces
-  bool isBomb(); // check for bomb
+    bool mine = false; // if set true by board.cpp then the cell is a mine
+    bool flag = false; // if set true then cell is a flag
+
 };
