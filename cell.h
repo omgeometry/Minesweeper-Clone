@@ -1,14 +1,13 @@
 // Cell object
 // Project Minesweeper Clone
 
-
 #pragma once
 
 class Cell {
 
 public:
   // take in bool and depending on left or right click, do different things
-  Cell(bool k); // constructor, bool true = bomb/ false = not bomb
+  Cell(bool k); // constructor, bool true = bomb/ false = not bomb 
 
 private:
 
