@@ -34,8 +34,6 @@ Board::Board(int size, int mines) {
 
         board[i / size][i % size].setMine(mineLocations[i]);
 
-        board[1][1].setMine(true);
-
     }
 }
 
