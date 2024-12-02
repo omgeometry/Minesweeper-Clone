@@ -13,7 +13,7 @@ class Board {
         bool dig(int i, int j);         // Digs at the given location. If a mine is hit, return false
 
     private:
-        vector< vector< Cell() > > board;
+        vector< vector< Cell > > board;
         
 };
 

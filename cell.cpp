@@ -15,6 +15,7 @@ void Cell::isFlag(Cell myCell) {
     }
 }
 
+
 // return true if cell is bomb, this function will be called when the player left clicks
 bool Cell::isMine(Cell myCell) {
     
