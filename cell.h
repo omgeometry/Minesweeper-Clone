@@ -3,7 +3,7 @@
 
 #pragma once
 #include <Fl/Fl_Button.H>
-class Cell {
+class Cell : Fl_Button {
 
 public:
   

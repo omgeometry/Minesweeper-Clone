@@ -2,7 +2,6 @@
 // Check if the cell is a mine or flag
 
 
-#pragma once
 #include "cell.h"
 using namespace std;
 
@@ -17,7 +16,7 @@ Cell::Cell(int x, int y, int w, int h, const char* label)
 
 }; 
 
-void Cell::isFlag(Cell myCell) {
+bool Cell::isFlag(Cell myCell) {
     
     if(myCell.flag == true) {
         return true;   
