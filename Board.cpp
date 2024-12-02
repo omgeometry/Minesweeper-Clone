@@ -4,6 +4,9 @@
 #include "cell.h"
 #include <vector>
 #include <random>
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 // Board constructor definition
@@ -28,8 +31,10 @@ Board::Board(int size, int mines) {
     // Fill the board with mines
     // NOTE: Logic may need to be modified to work with completed cell class
     for (int i = 0; i < (size * size); i++) {
-        // board[i / size][i % size] = (mineLocations[i]);
+
         board[i / size][i % size].setMine(mineLocations[i]);
+
+        board[1][1].setMine(true);
 
     }
 }
@@ -38,16 +43,30 @@ Board::Board(int size, int mines) {
 bool Board::dig(int i, int j) {
 
 // If the chosen spot is flagged, return true, do not let the user dig and do not end game
-    if (board[i][j].isFlag()) return true;
+    if (Cell::isFlag(board[i][j])) return true;
 
 // If the chosen spot to dig is a mine, return false
-    if (board[i][j].isMine()) return false;
+    if (Cell::isMine(board[i][j])) return false;
     
+    return true;
 }
 
 // Inverts the flag at the given position
 void Board::placeFlag(int i, int j) {
 
     // Invert flag at given location
-    board[i][j].placeFlag();
+    board[i][j].setFlag();
 } 
+
+// Testing Method, prints board's mine locations
+void Board::printBoard() {
+
+    int size = (int)board.size();
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            cout << Cell::isMine(board[i][j]) << ' ';
+        }
+        cout << endl;
+    }
+}

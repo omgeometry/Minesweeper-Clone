@@ -14,11 +14,12 @@ public:
 
   }; 
 
-  void setMine(bool mine); // Used in Board constructor to set mines
+  void setMine(bool in); // Used in Board constructor to set mines
   void setFlag(); // Inverts the flag upon user click
-  
-  void isFlag(Cell); // to check flagged spaces
-  bool isMine(Cell); // check for bomb
+
+  static bool isFlag(Cell); // to check flagged spaces
+  static bool isMine(Cell); // check for bomb
+
 
 
 private:

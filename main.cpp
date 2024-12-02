@@ -1,6 +1,8 @@
-#include <Fl/Fl.H>
-#include <FL/Fl_Window.H>
-#include <FL/Fl_Button.H>
+// #include <Fl/Fl.H>
+// #include <FL/Fl_Window.H>
+// #include <FL/Fl_Button.H>
+#include "Board.h"
+#include "cell.h"
 #include <iostream>
 
 using namespace std;
@@ -19,6 +21,7 @@ void button2_callback(Fl_Widget* widget, void* data) {
     cout << "Button 2 Callback" << endl;
 }
 
+
 int main() {
     Fl_Window win(200, 300, "Recursive Button Press");
     //Params are x, y, l, h, name
@@ -33,4 +36,9 @@ int main() {
     win.end();
     win.show();
     return Fl::run();
+
+
+    // Testing Board
+    Board minesweeper = Board(10, 40);
+    minesweeper.printBoard();
 }   

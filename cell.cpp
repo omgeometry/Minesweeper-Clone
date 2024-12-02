@@ -1,18 +1,15 @@
 // Carter Holtmann
 // Check if the cell is a mine or flag
-
-
-#pragma once
 #include "cell.h"
 using namespace std;
 
-// return true if cell is a flag(meaning cell's flag member got updated to true)
-// this function will be called when the player right clicks
-void Cell::isFlag(Cell myCell) {
+// return true if the cell has a flag, false if it does not
+bool Cell::isFlag(Cell myCell) {
     
-    if(myCell.flag == false) {
-        myCell.flag == true; // if cell is not a flag, make it one on right click, otherwise do nothing and continue
+    if(myCell.flag == true) {
+        return true;   
     }
+    return false;
 }
 
 
@@ -23,4 +20,14 @@ bool Cell::isMine(Cell myCell) {
         return true; // true will end the game, KABOOM!
     }
     return false;
+}
+
+// Inverts the flag
+void Cell::setFlag() {  
+    flag = !flag;
+}
+
+// Sets mine to true, used in board initialization
+void Cell::setMine(bool in) {
+    mine = in;
 }
