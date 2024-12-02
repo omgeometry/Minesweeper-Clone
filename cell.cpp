@@ -1,10 +1,23 @@
 // Carter Holtmann
 // Check if the cell is a mine or flag
+
+
+#pragma once
 #include "cell.h"
 using namespace std;
 
-// return true if the cell has a flag, false if it does not
-bool Cell::isFlag(Cell myCell) {
+// return true if cell is a flag(meaning cell's flag member got updated to true)
+// this function will be called when the player right clicks
+Cell::Cell(int x, int y, int w, int h, const char* label)
+    : Fl_Button(x, y, w, h, label) {
+    Fl_Color grey = fl_rgb_color(128, 128, 128); 
+    this->color(grey);
+    mine = false; // if set true by board.cpp then the cell is a mine
+    flag = false; // if set true then cell is a flag
+
+}; 
+
+void Cell::isFlag(Cell myCell) {
     
     if(myCell.flag == true) {
         return true;   
