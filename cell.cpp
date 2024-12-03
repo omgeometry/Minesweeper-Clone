@@ -5,8 +5,7 @@
 #include "cell.h"
 using namespace std;
 
-// return true if cell is a flag(meaning cell's flag member got updated to true)
-// this function will be called when the player right clicks
+
 Cell::Cell(int x, int y, int w, int h, const char* label)
     : Fl_Button(x, y, w, h, label) {
     Fl_Color grey = fl_rgb_color(128, 128, 128); 
@@ -16,6 +15,8 @@ Cell::Cell(int x, int y, int w, int h, const char* label)
 
 }; 
 
+// return true if cell is a flag(meaning cell's flag member got updated to true)
+// this function will be called when the player right clicks
 bool Cell::isFlag(Cell myCell) {
     
     if(myCell.flag == true) {
