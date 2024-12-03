@@ -13,6 +13,8 @@ Cell::Cell(int x, int y, int w, int h)
     this->color(grey);
     mine = false; // if set true by board.cpp then the cell is a mine
     flag = false; // if set true then cell is a flag
+    hidden = true;
+    nearbyMines = 0;
 
 }; 
 
@@ -34,6 +36,19 @@ bool Cell::isMine(Cell* myCell) {
     return false;
 }
 
+// return true if cell is bomb, this function will be called when the player left clicks
+bool Cell::isHidden(Cell* myCell) {
+    
+    if(myCell->hidden == true) {
+        return true; // true will end the game, KABOOM!
+    }
+    return false;
+}
+
+int Cell::getNearbyMines(Cell* myCell) {
+    return myCell->nearbyMines;
+}
+
 // Inverts the flag
 void Cell::setFlag() {  
     flag = !flag;
@@ -42,4 +57,12 @@ void Cell::setFlag() {
 // Sets mine to true, used in board initialization
 void Cell::setMine(bool in) {
     mine = in;
+}
+
+void Cell::setHidden(bool in) {
+    hidden = in;
+}
+
+void Cell::incrementNearbyMines() {
+    nearbyMines++;
 }
