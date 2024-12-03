@@ -1,5 +1,5 @@
 #include <Fl/Fl.H>
-#include "cell.h"
+#include "Board.h"
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Button.H>
 #include <iostream>
@@ -7,8 +7,8 @@
 using namespace std;
 
 int main() {
-    Cell wow = Cell(100,100,50,50);
-    
-    
+    Board board = Board(800, 800, 10,0);
+    board.end();
+    board.show();
     return Fl::run();
 }

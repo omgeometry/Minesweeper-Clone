@@ -5,9 +5,10 @@
 #include "cell.h"
 using namespace std;
 
-
-Cell::Cell(int x, int y, int w, int h, const char* label)
-    : Fl_Button(x, y, w, h, label) {
+// return true if cell is a flag(meaning cell's flag member got updated to true)
+// this function will be called when the player right clicks
+Cell::Cell(int x, int y, int w, int h)
+    : Fl_Button(x, y, w, h, 0) {
     Fl_Color grey = fl_rgb_color(128, 128, 128); 
     this->color(grey);
     mine = false; // if set true by board.cpp then the cell is a mine
@@ -15,11 +16,9 @@ Cell::Cell(int x, int y, int w, int h, const char* label)
 
 }; 
 
-// return true if cell is a flag(meaning cell's flag member got updated to true)
-// this function will be called when the player right clicks
-bool Cell::isFlag(Cell myCell) {
+bool Cell::isFlag(Cell* myCell) {
     
-    if(myCell.flag == true) {
+    if(myCell->flag == true) {
         return true;   
     }
     return false;
@@ -27,9 +26,9 @@ bool Cell::isFlag(Cell myCell) {
 
 
 // return true if cell is bomb, this function will be called when the player left clicks
-bool Cell::isMine(Cell myCell) {
+bool Cell::isMine(Cell* myCell) {
     
-    if(myCell.mine == true) {
+    if(myCell->mine == true) {
         return true; // true will end the game, KABOOM!
     }
     return false;

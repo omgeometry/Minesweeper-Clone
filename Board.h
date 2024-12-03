@@ -7,17 +7,17 @@
 #include "Fl/Fl_Window.H"
 using namespace std;
 
-class Board : Fl_Window{
+class Board : public Fl_Window{
     public:
-        Board(int size, int mines);     // Size of board is dictated by the gamemode selected
+        Board(int width, int height, int size, int mines);     // Size of board is dictated by the gamemode selected
         void placeFlag(int i, int j);   // Inverts the flag at the given coordonate (i, j)
         bool dig(int i, int j);         // Digs at the given location. If a mine is hit, return false
         void printBoard();
 
     private:
-        vector< vector< Cell > > board;
-        int widthPixels = 800;
-        int heightPixels = 800;
+        vector< vector< Cell* > > board;
+        int widthPixels;
+        int heightPixels;
         char* boardName = "Minesweeper";
         
 };

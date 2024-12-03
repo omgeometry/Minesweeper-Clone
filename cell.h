@@ -7,13 +7,13 @@ class Cell : Fl_Button {
 
 public:
   
-  Cell(int x, int y, int w, int h, const char* label = 0);  
+  Cell(int x, int y, int w, int h);  
 
   void setMine(bool in); // Used in Board constructor to set mines
   void setFlag(); // Inverts the flag upon user click
 
-  static bool isFlag(Cell); // to check flagged spaces
-  static bool isMine(Cell); // check for bomb
+  static bool isFlag(Cell *); // to check flagged spaces
+  static bool isMine(Cell *); // check for bomb
 
 
 
