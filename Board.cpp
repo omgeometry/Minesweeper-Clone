@@ -26,6 +26,40 @@ void Board::updateNearbyMines(int x, int y, int size) {
         }
     }
 }
+void Board::dig(int i, int j) {
+    
+    // Check Bounds
+    if(i >= board.size() || j >= board.size() || i < 0 || j < 0){
+        return;
+    }
+    cout << "Dig!" << endl;
+    if(visited_cells.find(board[i][j]) != visited_cells.end()){
+        return;
+    }else{
+        visited_cells.insert(board[i][j]);
+    }
+
+
+    // Check if already revealed
+    // if (!Cell::isHidden(board[i][j])) return;
+
+    // If the chosen spot is flagged, return true, do not let the user dig and do not end game
+    // if (Cell::isFlag(board[i][j])) return;
+
+    // If the chosen spot to dig is a mine, return and signal game over
+    // if (Cell::isMine(board[i][j])) {
+    //     gameOver = true;
+    //     return;
+    // }
+    dig(i-1, j);
+    dig(i+i, j);
+    dig(i, j-1);
+    dig(i, j+1);
+    board[i][j]->set();
+    //At this point, the given cell is not a mine and should now be revealed
+    
+    return;
+}
 
 // Board constructor definition
 Board::Board(int width, int height, int size, int mines) : Fl_Window(width, height, "Minesweeper")
@@ -55,9 +89,17 @@ Board::Board(int width, int height, int size, int mines) : Fl_Window(width, heig
         i.resize(size);
     int squareWidth = widthPixels/size;
     int squareHeight = heightPixels/size;
+
     for(int i = 0; i < size; i++){
         for(int j = 0; j < size; j++){
             board[i][j] = new Cell(i * squareWidth, j * squareHeight, squareWidth, squareHeight);
+            int values[2] = {i, j};
+
+            board[i][j]->setCallback([](Fl_Widget* widget, void* data) {
+            Board* window = (Board*)data;  // Get the 'this' pointer via data
+            Cell* button = dynamic_cast<Cell*>(widget);
+            window->buttonCallback(button);  // Call the member function 'dig'
+        }, this);
         }
     }
     // Cell* test = new Cell(50, 50, 50, 50);
@@ -72,26 +114,13 @@ Board::Board(int width, int height, int size, int mines) : Fl_Window(width, heig
     gameOver = false;
 }
 
-// Dig function allows the user to check if a square is a bomb. If it is, return false and end game
-void Board::dig(int i, int j) {
-
-// Check Bounds
-    if ((i || j < 0) || (i || j >= board.size())) return;
-
-// Check if already revealed
-    if (Cell::isHidden(board[i][j])) return;
-
-// If the chosen spot is flagged, return true, do not let the user dig and do not end game
-    if (Cell::isFlag(board[i][j])) return;
-
-// If the chosen spot to dig is a mine, return and signal game over
-    if (Cell::isMine(board[i][j])) {
-        gameOver = true;
-        return;
-    }
-    
-    return;
+void Board::buttonCallback(Cell* button){
+    int* coordinates = Cell::getCoordinates(button);
+    int i = coordinates[0];
+    int j = coordinates[1];
+    dig(i, j);
 }
+// Dig function allows the user to check if a square is a bomb. If it is, return false and end game
 
 // Inverts the flag at the given position
 void Board::placeFlag(int i, int j) {

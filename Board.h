@@ -4,6 +4,7 @@
 #define BOARD_H
 #include "cell.h"
 #include <vector>
+#include <set>
 #include "Fl/Fl_Window.H"
 using namespace std;
 
@@ -17,10 +18,11 @@ class Board : public Fl_Window{
         bool gameOver;
 
     private:
+        void buttonCallback(Cell* button);
+        set< Cell* > visited_cells;
         vector< vector< Cell* > > board;
         int widthPixels;
         int heightPixels;
-        char* boardName = "Minesweeper";
         
 };
 

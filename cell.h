@@ -3,7 +3,7 @@
 
 #pragma once
 #include <Fl/Fl_Button.H>
-class Cell : Fl_Button {
+class Cell : public Fl_Button {
 
 public:
   
@@ -13,19 +13,22 @@ public:
   void setFlag(); // Inverts the flag upon user click
   void setHidden(bool in);
   void incrementNearbyMines();
-
+  void setCallback(Fl_Callback* cb, void* data = nullptr);
   static bool isFlag(Cell *); // to check flagged spaces
   static bool isMine(Cell *); // check for bomb
   static bool isHidden(Cell *); // check if Hidden
   static int getNearbyMines(Cell *); // check if Hidden
-
+  static int* getCoordinates(Cell *);
   void set();
+
 
 private:
 
     bool mine = false; // if set true by board.cpp then the cell is a mine
     bool flag = false; // if set true then cell is a flag
     bool hidden = true;
+    int x;
+    int y;
     int nearbyMines; // Num of adjacent mines
 
 };

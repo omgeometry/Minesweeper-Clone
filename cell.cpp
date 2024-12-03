@@ -15,7 +15,8 @@ Cell::Cell(int x, int y, int w, int h)
     flag = false; // if set true then cell is a flag
     hidden = true;
     nearbyMines = 0;
-
+    this->x = x;
+    this->y = y;
 }; 
 
 bool Cell::isFlag(Cell* myCell) {
@@ -49,15 +50,27 @@ int Cell::getNearbyMines(Cell* myCell) {
     return myCell->nearbyMines;
 }
 
+int* Cell::getCoordinates(Cell* myCell){
+    int array[2] = {myCell->x, myCell->y};
+    int* pointer = array;
+    return pointer;
+}
+
 // Inverts the flag
 void Cell::set(){
     set();
     if(this->isMine){
         this->label("Mine!");
     }else{
-        this->label((char*) surroundingMines + '0');
+        this->label((char*) nearbyMines + '0');
     }
 }
+
+void Cell::setCallback(Fl_Callback* cb, void* data) {
+    this->callback(cb, data);  // Call the base class's callback method
+}
+
+
 void Cell::setFlag() {  
     flag = !flag;
 }
