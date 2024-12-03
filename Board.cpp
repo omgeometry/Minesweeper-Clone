@@ -11,8 +11,23 @@
 
 using namespace std;
 
-// Board constructor definition
+// Takes the location of a placed mine and then increments all nearby Cell's nearbyMines
+void Board::updateNearbyMines(int x, int y, int size) {
+    for (int i = -1; i < 2; i++) {
+        for (int j = -1; j < 2; j++) {
+            int tempX = x + i;
+            int tempY = y + j;
 
+            // Check Bounds
+            if ((tempX >= 0 && tempY >= 0) && (tempX < size && tempY < size)) {
+                board[tempX][tempY]->incrementNearbyMines();
+            }
+            
+        }
+    }
+}
+
+// Board constructor definition
 Board::Board(int width, int height, int size, int mines) : Fl_Window(width, height, "Minesweeper")
 {
     widthPixels = width;
@@ -49,21 +64,33 @@ Board::Board(int width, int height, int size, int mines) : Fl_Window(width, heig
     // Fill the board with mines
     // NOTE: Logic may need to be modified to work with completed cell class
     for (int i = 0; i < (size * size); i++) {
-        // board[i / size][i % size]->setMine(mineLocations[i]);
+        board[i / size][i % size]->setMine(mineLocations[i]);
+
+        // Set Nearby Mines
+        if (mineLocations[i]) updateNearbyMines(i / size, i % size, size);
     }
+    gameOver = false;
 }
 
 // Dig function allows the user to check if a square is a bomb. If it is, return false and end game
-bool Board::dig(int i, int j) {
+void Board::dig(int i, int j) {
+
+// Check Bounds
+    if ((i || j < 0) || (i || j >= board.size())) return;
+
+// Check if already revealed
+    if (Cell::isHidden(board[i][j])) return;
 
 // If the chosen spot is flagged, return true, do not let the user dig and do not end game
-    if (Cell::isFlag(board[i][j])) return true;
+    if (Cell::isFlag(board[i][j])) return;
 
-// If the chosen spot to dig is a mine, return false
-    if (Cell::isMine(board[i][j])) return false;
+// If the chosen spot to dig is a mine, return and signal game over
+    if (Cell::isMine(board[i][j])) {
+        gameOver = true;
+        return;
+    }
     
-    
-    return true;
+    return;
 }
 
 // Inverts the flag at the given position
@@ -72,3 +99,26 @@ void Board::placeFlag(int i, int j) {
     // Invert flag at given location
     board[i][j]->setFlag();
 } 
+
+void Board::printBoard() {
+    for (int i = 0; i < board.size(); i++) {
+        for (int j = 0; j < board.size(); j++) {
+
+            // if (Cell::isHidden(board[i][j])) {
+            //     cout << "- ";
+            // } else {
+            //     cout << "x ";
+            // }
+            
+            if (Cell::isMine(board[i][j])) {
+                cout << "X ";
+            } else if (Cell::getNearbyMines(board[i][j]) == 0) {
+                cout << "  ";
+            } else {
+                cout << Cell::getNearbyMines(board[i][j]) << ' ';
+            }
+            
+        }
+        cout << endl;
+    }
+}
