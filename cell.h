@@ -19,6 +19,10 @@ public:
   static bool isHidden(Cell *); // check if Hidden
   static int getNearbyMines(Cell *); // check if Hidden
 
+  void set();
+  static bool isFlag(Cell *); // to check flagged spaces
+  static bool isMine(Cell *); // check for bomb
+  
 
 
 private:

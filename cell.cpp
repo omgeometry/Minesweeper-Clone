@@ -50,6 +50,14 @@ int Cell::getNearbyMines(Cell* myCell) {
 }
 
 // Inverts the flag
+void Cell::set(){
+    set();
+    if(this->isMine){
+        this->label("Mine!");
+    }else{
+        this->label((char*) surroundingMines + '0');
+    }
+}
 void Cell::setFlag() {  
     flag = !flag;
 }
