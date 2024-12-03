@@ -11,7 +11,7 @@ class Board : public Fl_Window{
     public:
         Board(int width, int height, int size, int mines);     // Size of board is dictated by the gamemode selected
         void placeFlag(int i, int j);   // Inverts the flag at the given coordonate (i, j)
-        bool dig(int i, int j);         // Digs at the given location. If a mine is hit, return false
+        void dig(int i, int j);         // Digs at the given location. If a mine is hit, return false
         void printBoard();
         void updateNearbyMines(int x, int y, int size);
         bool gameOver;
