@@ -3,8 +3,10 @@
 
 
 #include "cell.h"
+#include "Fl/Fl.H"
 #include <string>
 #include <stdlib.h>
+#include <iostream>
 #include <unordered_map>
 using namespace std;
 
@@ -30,6 +32,22 @@ Cell::Cell(int x, int y, int w, int h)
     labels.insert(make_pair(8, "8"));
 
 }; 
+
+int Cell::handle(int event) {
+    switch (event) {
+        case FL_PUSH:  // Mouse button press event
+            if (Fl::event_button() == FL_LEFT_MOUSE) {
+                return Fl_Button::handle(event);
+            } else if (Fl::event_button() == FL_RIGHT_MOUSE) {
+                setFlag();
+                return 1;
+            }
+            return 1;  // Event is handled
+
+        default:
+            return Fl_Button::handle(event);  // Default handling
+    }
+}
 
 bool Cell::isFlag(Cell* myCell) {
     
@@ -84,7 +102,14 @@ void Cell::setCallback(Fl_Callback* cb, void* data) {
 
 
 void Cell::setFlag() {  
-    Cell::color(FL_GREEN);
+    if(flag){
+        this->color(fl_rgb_color(128, 128, 128));
+        this->redraw();
+    }else{
+        this->color(FL_GREEN);
+        this->redraw();
+    }
+    cout << "Yo!" << endl;
     flag = !flag;
 }
 

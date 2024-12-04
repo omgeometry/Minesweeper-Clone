@@ -23,6 +23,8 @@ class Board : public Fl_Window{
         vector< vector< Cell* > > board;
         int widthPixels;
         int heightPixels;
+        int freeSpacesFound; // Number of free spacees the user has found, used for win condition
+        int totalFreeSpaces; // Total number of free spaces on the board. Used for win condition
         
 };
 #endif

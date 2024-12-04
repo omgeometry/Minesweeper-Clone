@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <time.h>
 #include "Fl/Fl_Window.H"
+#include "Fl/fl_ask.H"
+#include "Fl/fl_message.H"
 #include <iostream>
 
 using namespace std;
@@ -27,7 +29,7 @@ void Board::updateNearbyMines(int x, int y, int size) {
     }
 }
 void Board::dig(int i, int j) {
-    
+
     // Check Bounds
     if(i >= board.size() || j >= board.size() || i < 0 || j < 0){
         return;
@@ -37,23 +39,48 @@ void Board::dig(int i, int j) {
     }else{
         visited_cells.insert_or_assign(board[i][j], true);
     }
+    if(Cell::isFlag(board[i][j])){
+        return;
+    }
+    // cout << freeSpacesFound << endl;
+    if (Cell::isMine(board[i][j])) {
+        cout << "The game is over" << endl;
+        gameOver = true;
+        board[i][j]->set();
+
+        fl_message_title("Actually terrible!");
+        fl_message("Cheeks at minesweeper fr!");
+        std::exit(0);
+    }
     if(Cell::getNearbyMines(board[i][j]) > 0){
         board[i][j]->set();
+        // Incase a Cell next to a mine is clicked, include win condition here aswell.
+        freeSpacesFound++;
+        if (freeSpacesFound >= totalFreeSpaces) {
+            // Print winning message and quit program
+            fl_message_title("Youre a winner!");
+            fl_message("Congratulations!");
+            std::exit(0);
+        }
         return;
     }
     
-    // If the chosen spot to dig is a mine, return and signal game over
-    if (Cell::isMine(board[i][j])) {
-        gameOver = true;
-        return;
-    }
+    // Recursively call dig() to reveal additional spaces     
     dig(i-1, j);
     dig(i+1, j);
     dig(i, j-1);
     dig(i, j+1);
+
     board[i][j]->set();
-    //At this point, the given cell is not a mine and should now be revealed
-    
+
+    freeSpacesFound++;
+    // Count total number of free spaces the user has found and then check win condition   
+    if (freeSpacesFound >= totalFreeSpaces) {
+        fl_message_title("Youre a winner!");
+        fl_message("Congratulations!");
+        std::exit(0);
+    }
+
     return;
 }
 
@@ -62,6 +89,8 @@ Board::Board(int width, int height, int size, int mines) : Fl_Window(width, heig
 {
     widthPixels = width;
     heightPixels = height;
+    totalFreeSpaces = size * size - mines;
+    freeSpacesFound = 0;
     // To set the mines, I make a vector of booleans of a size equal to the number of mines and set each value to true. This vector is then
     // expanded to the size of the board with all of the new values being false. Then the booleans are shuffled and each one will corrospond to a mine
     vector<bool> mineLocations(mines, true);
@@ -129,18 +158,12 @@ void Board::printBoard() {
     for (int i = 0; i < board.size(); i++) {
         for (int j = 0; j < board.size(); j++) {
 
-            // if (Cell::isHidden(board[i][j])) {
-            //     cout << "- ";
-            // } else {
-            //     cout << "x ";
-            // }
-            
-            if (Cell::isMine(board[i][j])) {
+            if (Cell::isMine(board[j][i])) {
                 cout << "X ";
-            } else if (Cell::getNearbyMines(board[i][j]) == 0) {
+            } else if (Cell::getNearbyMines(board[j][i]) == 0) {
                 cout << "  ";
             } else {
-                cout << Cell::getNearbyMines(board[i][j]) << ' ';
+                cout << Cell::getNearbyMines(board[j][i]) << ' ';
             }
             
         }

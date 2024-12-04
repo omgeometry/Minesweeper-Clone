@@ -7,7 +7,7 @@
 using namespace std;
 //Hi!
 int main() {
-    Board board = Board(800, 800, 10,10);
+    Board board = Board(800, 800, 50,200);
     board.printBoard();
     board.end();
     board.show();
