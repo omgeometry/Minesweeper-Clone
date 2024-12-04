@@ -5,7 +5,7 @@
 #include <iostream>
 #include <type_traits>
 using namespace std;
-
+//Hi!
 int main() {
     Board board = Board(800, 800, 10,10);
     board.printBoard();

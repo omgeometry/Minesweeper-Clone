@@ -3,6 +3,7 @@
 
 #pragma once
 #include <Fl/Fl_Button.H>
+#include <unordered_map>
 class Cell : public Fl_Button {
 
 public:
@@ -21,9 +22,8 @@ public:
   static int* getCoordinates(Cell *);
   void set();
 
-
 private:
-
+    std::unordered_map< int, const char* > labels;
     bool mine = false; // if set true by board.cpp then the cell is a mine
     bool flag = false; // if set true then cell is a flag
     bool hidden = true;

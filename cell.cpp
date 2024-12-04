@@ -3,6 +3,9 @@
 
 
 #include "cell.h"
+#include <string>
+#include <stdlib.h>
+#include <unordered_map>
 using namespace std;
 
 // return true if cell is a flag(meaning cell's flag member got updated to true)
@@ -17,6 +20,15 @@ Cell::Cell(int x, int y, int w, int h)
     nearbyMines = 0;
     this->x = x;
     this->y = y;
+    labels.insert(make_pair(1, "1"));
+    labels.insert(make_pair(2, "2"));
+    labels.insert(make_pair(3, "3"));
+    labels.insert(make_pair(4, "4"));
+    labels.insert(make_pair(5, "5"));
+    labels.insert(make_pair(6, "6"));
+    labels.insert(make_pair(7, "7"));
+    labels.insert(make_pair(8, "8"));
+
 }; 
 
 bool Cell::isFlag(Cell* myCell) {
@@ -58,11 +70,11 @@ int* Cell::getCoordinates(Cell* myCell){
 
 // Inverts the flag
 void Cell::set(){
-    set();
-    if(this->isMine){
+    Fl_Button::set();
+    if(Cell::isMine(this)){
         this->label("Mine!");
-    }else{
-        this->label((char*) nearbyMines + '0');
+    }else if(Cell::getNearbyMines(this) > 0){
+        this->label(labels[Cell::getNearbyMines(this)]);
     }
 }
 
@@ -72,6 +84,7 @@ void Cell::setCallback(Fl_Callback* cb, void* data) {
 
 
 void Cell::setFlag() {  
+    Cell::color(FL_GREEN);
     flag = !flag;
 }
 
@@ -86,4 +99,5 @@ void Cell::setHidden(bool in) {
 
 void Cell::incrementNearbyMines() {
     nearbyMines++;
+    
 }
