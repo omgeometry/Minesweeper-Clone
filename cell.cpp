@@ -49,33 +49,32 @@ int Cell::handle(int event) {
     }
 }
 
+// Return true if given cell has a flag. Keeps cell from being dug
 bool Cell::isFlag(Cell* myCell) {
-    
     if(myCell->flag == true) {
         return true;   
     }
     return false;
 }
 
-
-// return true if cell is bomb, this function will be called when the player left clicks
+// Return true if cell is bomb, this function will be called when the player left clicks
 bool Cell::isMine(Cell* myCell) {
-    
     if(myCell->mine == true) {
-        return true; // true will end the game, KABOOM!
+        return true; 
     }
     return false;
 }
 
-// return true if cell is bomb, this function will be called when the player left clicks
+// Return true if cell is bomb, this function will be called when the player left clicks
+// *NOTE* Pretty sure this function can go and isnt used anywhere
 bool Cell::isHidden(Cell* myCell) {
-    
     if(myCell->hidden == true) {
-        return true; // true will end the game, KABOOM!
+        return true; 
     }
     return false;
 }
 
+// Returns the number of nearby mines wich will be displayed if the cell is not a mine or == 0
 int Cell::getNearbyMines(Cell* myCell) {
     return myCell->nearbyMines;
 }
@@ -86,7 +85,6 @@ int* Cell::getCoordinates(Cell* myCell){
     return pointer;
 }
 
-// Inverts the flag
 void Cell::set(){
     Fl_Button::set();
     if(Cell::isMine(this)){
@@ -100,8 +98,9 @@ void Cell::setCallback(Fl_Callback* cb, void* data) {
     this->callback(cb, data);  // Call the base class's callback method
 }
 
-
+// Inverts the flag on click
 void Cell::setFlag() {  
+    // Checks state of flag and then changes its color accordingly
     if(flag){
         this->color(fl_rgb_color(128, 128, 128));
         this->redraw();
@@ -109,15 +108,16 @@ void Cell::setFlag() {
         this->color(FL_GREEN);
         this->redraw();
     }
-    cout << "Yo!" << endl;
     flag = !flag;
 }
 
-// Sets mine to true, used in board initialization
+// Sets mine state, used in board initialization
 void Cell::setMine(bool in) {
     mine = in;
 }
 
+// Sets hidden state
+// *NOTE* I think this function along with hidden can go. Pretty sure they arent used anywhere
 void Cell::setHidden(bool in) {
     hidden = in;
 }

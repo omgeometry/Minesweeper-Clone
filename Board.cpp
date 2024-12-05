@@ -42,7 +42,7 @@ void Board::dig(int i, int j) {
     if(Cell::isFlag(board[i][j])){
         return;
     }
-    // cout << freeSpacesFound << endl;
+
     if (Cell::isMine(board[i][j])) {
         cout << "The game is over" << endl;
         gameOver = true;
@@ -145,7 +145,6 @@ void Board::buttonCallback(Cell* button){
     int j = coordinates[1] * board.size()/widthPixels;
     dig(i, j);
 }
-// Dig function allows the user to check if a square is a bomb. If it is, return false and end game
 
 // Inverts the flag at the given position
 void Board::placeFlag(int i, int j) {
@@ -154,6 +153,7 @@ void Board::placeFlag(int i, int j) {
     board[i][j]->setFlag();
 } 
 
+// Displays the solution to the board in the terminal
 void Board::printBoard() {
     for (int i = 0; i < board.size(); i++) {
         for (int j = 0; j < board.size(); j++) {
