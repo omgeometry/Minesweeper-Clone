@@ -1,0 +1,11 @@
+Channing Tan
+
+Hour 0-1: Switching libraries again to now use FLTK. At this point, I can have a working button appear on the screen
+
+Hour 1-2 1/2: Working with carter to integrate cell class with the GUI. Instead of being a simple class, it extends the FLTK Button class and has extended functionality
+
+Hour 2 1/2 - 4: Working with Brian to integrate board class with the GUI. It extends the window class.
+
+Hours 4-5 1/2: Working on clicking the button and having the buttons click each other.
+
+Hours 5 1/2 - 6: Adding finishing touches - removing unneccessary code, adding comments
