@@ -15,9 +15,9 @@ public:
   void setHidden(bool in);
   void incrementNearbyMines();
   void setCallback(Fl_Callback* cb, void* data = nullptr);
+  
   static bool isFlag(Cell *); // to check flagged spaces
   static bool isMine(Cell *); // check for bomb
-  static bool isHidden(Cell *); // check if Hidden
   static int getNearbyMines(Cell *); // check if Hidden
   static int* getCoordinates(Cell *);
   void set();
@@ -27,7 +27,6 @@ private:
     std::unordered_map< int, const char* > labels;
     bool mine = false; // if set true by board.cpp then the cell is a mine
     bool flag = false; // if set true then cell is a flag
-    bool hidden = true;
     int x;
     int y;
     int nearbyMines; // Num of adjacent mines

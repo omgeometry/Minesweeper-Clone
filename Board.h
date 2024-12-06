@@ -15,7 +15,6 @@ class Board : public Fl_Window{
         void dig(int i, int j);         // Digs at the given location. If a mine is hit, return false
         void printBoard();
         void updateNearbyMines(int x, int y, int size);
-        bool gameOver;
 
     private:
         void buttonCallback(Cell* button);

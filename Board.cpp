@@ -1,5 +1,5 @@
 // Brian
-// Board.cpp defines the Board class
+// Board.cpp defines the Board class. It contains the important functions for playing the game, dig() and flag(). It also contains the gui logic
 #include "Board.h"
 #include "cell.h"
 #include <vector>
@@ -28,6 +28,8 @@ void Board::updateNearbyMines(int x, int y, int size) {
         }
     }
 }
+
+// Recursive function 
 void Board::dig(int i, int j) {
 
     // Check Bounds
@@ -44,12 +46,10 @@ void Board::dig(int i, int j) {
     }
 
     if (Cell::isMine(board[i][j])) {
-        cout << "The game is over" << endl;
-        gameOver = true;
         board[i][j]->set();
 
-        fl_message_title("Actually terrible!");
-        fl_message("Cheeks at minesweeper fr!");
+        fl_message_title("You Lose!");
+        fl_message("Game Over!");
         std::exit(0);
     }
     if(Cell::getNearbyMines(board[i][j]) > 0){
@@ -58,7 +58,7 @@ void Board::dig(int i, int j) {
         freeSpacesFound++;
         if (freeSpacesFound >= totalFreeSpaces) {
             // Print winning message and quit program
-            fl_message_title("Youre a winner!");
+            fl_message_title("You're a Winner!");
             fl_message("Congratulations!");
             std::exit(0);
         }
@@ -76,11 +76,10 @@ void Board::dig(int i, int j) {
     freeSpacesFound++;
     // Count total number of free spaces the user has found and then check win condition   
     if (freeSpacesFound >= totalFreeSpaces) {
-        fl_message_title("Youre a winner!");
+        fl_message_title("You're a Winner!");
         fl_message("Congratulations!");
         std::exit(0);
     }
-
     return;
 }
 
@@ -105,13 +104,15 @@ Board::Board(int width, int height, int size, int mines) : Fl_Window(width, heig
     }
 
     // Set the board's size before filling it with mines, set all of the Cells to false (No Bomb)
-
     board.resize(size);
-    for(vector<Cell*> row: board){
+
+    for (vector<Cell*> row: board) {
         row.resize(size);
     }
-    for (auto &i : board)
+    for (auto &i : board) {
         i.resize(size);
+    }
+
     int squareWidth = widthPixels/size;
     int squareHeight = heightPixels/size;
 
@@ -127,16 +128,14 @@ Board::Board(int width, int height, int size, int mines) : Fl_Window(width, heig
         }, this);
         }
     }
-    // Cell* test = new Cell(50, 50, 50, 50);
+
     // Fill the board with mines
-    // NOTE: Logic may need to be modified to work with completed cell class
     for (int i = 0; i < (size * size); i++) {
         board[i / size][i % size]->setMine(mineLocations[i]);
 
         // Set Nearby Mines
         if (mineLocations[i]) updateNearbyMines(i / size, i % size, size);
     }
-    gameOver = false;
 }
 
 void Board::buttonCallback(Cell* button){
@@ -147,6 +146,7 @@ void Board::buttonCallback(Cell* button){
 }
 
 // Inverts the flag at the given position
+// *NOTE* I think this function can be removed aswell
 void Board::placeFlag(int i, int j) {
 
     // Invert flag at given location

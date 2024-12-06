@@ -18,7 +18,6 @@ Cell::Cell(int x, int y, int w, int h)
     this->color(grey);
     mine = false; // if set true by board.cpp then the cell is a mine
     flag = false; // if set true then cell is a flag
-    hidden = true;
     nearbyMines = 0;
     this->x = x;
     this->y = y;
@@ -33,6 +32,7 @@ Cell::Cell(int x, int y, int w, int h)
 
 }; 
 
+// Define handle() in order to differentiate right and left clicks (dig vs. flag)
 int Cell::handle(int event) {
     switch (event) {
         case FL_PUSH:  // Mouse button press event
@@ -60,15 +60,6 @@ bool Cell::isFlag(Cell* myCell) {
 // Return true if cell is bomb, this function will be called when the player left clicks
 bool Cell::isMine(Cell* myCell) {
     if(myCell->mine == true) {
-        return true; 
-    }
-    return false;
-}
-
-// Return true if cell is bomb, this function will be called when the player left clicks
-// *NOTE* Pretty sure this function can go and isnt used anywhere
-bool Cell::isHidden(Cell* myCell) {
-    if(myCell->hidden == true) {
         return true; 
     }
     return false;
@@ -116,13 +107,7 @@ void Cell::setMine(bool in) {
     mine = in;
 }
 
-// Sets hidden state
-// *NOTE* I think this function along with hidden can go. Pretty sure they arent used anywhere
-void Cell::setHidden(bool in) {
-    hidden = in;
-}
-
+// Used to calculate the number that goes in each non-mine Cell
 void Cell::incrementNearbyMines() {
-    nearbyMines++;
-    
+    nearbyMines++;  
 }
