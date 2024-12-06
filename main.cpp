@@ -50,6 +50,7 @@ int main() {
     }
 
     // Create the board and open the gui
+    //if dissatisfied with size of board edit the magic numbers of 800 below
     Board board = Board(800, 800, boardSize, numOfMines);
     board.printBoard();
     board.end();
