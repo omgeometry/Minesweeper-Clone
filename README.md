@@ -1,5 +1,5 @@
-# Minesweeper-Clone
-# Bruian was here
-# Change 3
-# Channing Was here
-# Carter was here
+# Bomb Squeegee
+
+How to install necessary libraries (linux highly recommended):
+- Linux: sudo apt-get install libfltk1.3-dev
+- Windows/Mac: https://www.fltk.org/doc-1.3/intro.html
