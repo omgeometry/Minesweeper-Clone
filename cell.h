@@ -25,6 +25,7 @@ public:
 private:
     int handle(int event) override;
     std::unordered_map< int, const char* > labels;
+    std::unordered_map< int, Fl_Color > labelColors;
     bool mine = false; // if set true by board.cpp then the cell is a mine
     bool flag = false; // if set true then cell is a flag
     int x;

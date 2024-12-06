@@ -21,6 +21,14 @@ Cell::Cell(int x, int y, int w, int h)
     nearbyMines = 0;
     this->x = x;
     this->y = y;
+    labelColors.insert(make_pair(1, FL_BLUE));
+    labelColors.insert(make_pair(2, FL_GREEN));
+    labelColors.insert(make_pair(3, FL_RED)); 
+    labelColors.insert(make_pair(4, fl_rgb_color(128,0,128))); //purple
+    labelColors.insert(make_pair(5, FL_RED));
+    labelColors.insert(make_pair(6, FL_GREEN));
+    labelColors.insert(make_pair(7, FL_GREEN));
+    labelColors.insert(make_pair(8, FL_GREEN));
     labels.insert(make_pair(1, "1"));
     labels.insert(make_pair(2, "2"));
     labels.insert(make_pair(3, "3"));
@@ -76,11 +84,13 @@ int* Cell::getCoordinates(Cell* myCell){
     return pointer;
 }
 
+//Reveals the cell by setting the label text and pushing it
 void Cell::set(){
     Fl_Button::set();
     if(Cell::isMine(this)){
         this->label("Mine!");
     }else if(Cell::getNearbyMines(this) > 0){
+        this->labelcolor(labelColors[Cell::getNearbyMines(this)]);
         this->label(labels[Cell::getNearbyMines(this)]);
     }
 }
