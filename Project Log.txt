@@ -1,0 +1,32 @@
+Carter Holtmann
+
+Capstone Project
+
+Log 
+
+Hour 1: 
+	Each of us worked on a seperate piece of the project. Since we decided to use a 
+	GUI, Channing started work on that. I worked on the cell class and logic, and Brian 
+	worked on the board class and logic.
+
+Hour 2: 
+	Continued working on our tasks. We had a little confusion on whether the 
+	state of the cells should be determined in the board or cell class. So the logic
+	in my code didn't fully work with the board class.
+
+Hour 3: 
+	Fixing my code to work with the board class and so the logic agrees. Channing 
+	figured out the GUI and began working on a frame for our code to work(creating a grid
+	of squares).
+
+Hour 4: 
+	Channing began working on taking our code and implementing it into the GUI.
+	It took a while for this to complete.
+
+Hour 5: 
+	The grid of cells was complete and they were clickable now. The only problem was 
+	making them so that they would cause other cells around them to open when enough 
+	correct cells were clicked.
+Hour 6: 
+	Implement the algorithm for opening surrounding cells and work on fixing various 
+	bugs. Finalize the game and finish up.

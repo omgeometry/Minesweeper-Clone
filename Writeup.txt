@@ -1,0 +1,31 @@
+Project Name: Bomb Squeegee(minesweeper clone)
+
+Group:
+
+Channing Tan, Brian Stewart, Carter Holtmann
+
+Project Writeup
+
+1. What went well?
+
+Our execution went well. We were able to implement our individual parts of code together
+and make a functional game. 
+
+2. What went less well?
+
+There was some confusion on what each our tasks were as a group. The division of tasks wasn't
+as even as it could have been, but because we rarely worked in person it was hard for us to 
+split up the work evenly. 
+
+3. What did we learn?
+
+We learned that our difference in operating systems made things more difficult than they had
+to be. We learned how to use an external library(fltk) and make GUI for our game. We also 
+learned about inheritance and extension of classes.
+
+4. Why should we earn discretionary points?
+
+The final version of our game works as intended. We spent time implementing the GUI instead of 
+making this a console based game. This made them most since for our game because in 
+minesweeper you use the mouse to click the squares and trying to do this with a keyboard
+would be annoying.
